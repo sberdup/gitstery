@@ -1,0 +1,159 @@
+To find commit within a date range
+$ git log --after="2019-07-20" --before="2019-07-26"
+
+Log submitted that week by Kyle.
+--------------------------------
+commit 0e63b5b41dec7b308fce23b5bc2676b4300312f2
+Author: Kyle Pumbinner <kpumbinner@gtpd.gittown.gov>
+Date:   Wed Jul 24 21:44:00 2019 +0000
+
+    Crime scene report #956171
+
+    Murder took place ten days ago, on July 14th. Coroner report says it was some time between 16:13 and
+    19:37.
+
+    According to the security guard that sat at the entrance to the factory, on the day of the murder no
+    one came through the front door. So that leaves the back door, which requires an RFID card to open.
+
+    With the help of the factory's IT department I managed to cherry-pick the relevant commits from the
+    access log for all the electronically locked facilities on premise. They're on my personal
+    'detectives/kpumbinner' branch. But they said the program doesn't have a search button... I'll have
+    to sift through it to find who used "BACKDOOR_332". I put the log file in the evidence folder to
+    look through later
+--------------------------------
+
+To find commits based on content added to files 
+$ git log -G BACKDOOR_332
+
+These are the Backdoor 332 users 
+--------------------------------
+commit 13611d857c908965e0ce4dec76e19a0e6a30ec1c
+Author: Brock Stuickard <stuickard.brock@commitfactory.com>
+Date:   Sun Jul 14 15:23:00 2019 +0000
+
+    ACCESS LOG COMMIT 15:23
+
+commit 09d0547f76b47fa547798774322013ce68173fec
+Author: Cosmo Siwkonk <siwkonk.cosmo@commitfactory.com>
+Date:   Sun Jul 14 14:16:00 2019 +0000
+
+    ACCESS LOG COMMIT 14:16
+
+commit d9289fe462c1e302ef8253675e2e6761b81e3ea3
+Author: Lyndon Huskupper <huskupper.lyndon@commitfactory.com>
+Date:   Sun Jul 14 12:06:00 2019 +0000
+
+    ACCESS LOG COMMIT 12:06
+--------------------------------
+
+To find where these people live
+$ git grep <name>
+--------------------------------
+Brock Stuickard   9 Beaconside
+Cosmo Siwkonk     26 Balcombe Close
+Lyndon Huskupper  73 Tamworth Drive
+--------------------------------
+
+To see all tags
+$ git tag -l (for list)
+
+Each street tag is tied to one specific commit.
+$ git show street/beaconside
+This will get you the commit you need.
+---------------------------------
+Beaconside 5e37024660b27211f54c09121d152ac519baa0ce
+Balcombe Close f36a4e613fb5a50c8493fa8dd86b899e760be28d
+Tamworth Drive 72c01a99ab5d85df6fb741bc18f50d6c666b32fb
+---------------------------------
+
+$ git show 5e37024660b27211f54c09121d152ac519baa0ce 
+Using the commit hash then shows it.
+To find the ancestor of the commit you can use ^ after the hash
+$ git show 5e37024660b27211f54c09121d152ac519baa0ce^
+This shows the first ancestor. So you need ^^^^^^^^^ to show the 9th ancestor to that commit, for instance.
+
+Going to their houses now
+--------------------------------
+commit 92f6e05c6aa06c791f402d7e19649fa1f0ec76c6
+Author: Dolores Wholfump <mayor@gittown.gov>
+Date:   Tue Jan 1 00:00:00 2019 +0000
+
+    9 Beaconside
+
+    Yeah, of course I used the backdoor to the factory, that's the closest entrance to the freezer and I
+    brought in some ingrediants that can't really stand the heat.
+
+    At the time of the murder I was at a block party right down the street from here, we threw the party
+    for one of the neighbors who got back from the hospital after an accident. I was with my kids. You
+    can ask anyone who's been there.
+
+    Oh wait, you know what? We took a picture... Let me get my phone.
+
+    See? That's me, that's the neighbor, here's my little girl. And you see the timestamp?
+
+    So yeah, I really don't have anything to do with that... Barely knew the victim...
+
+    But you know what? I did see someone rushing out of the factory... He got into a green Hyundai, you
+    don't see many of those around here... Probably a rental. I didn't catch his face, was just weird
+    seeing someone running off like that... Come to think about it, maybe that person had something to
+    do with it?
+
+    Anyways, best of luck catching whoever did it!
+
+commit bc6870d8093a33d9a69acc94a1cda16ee2d7195d
+Author: Dolores Wholfump <mayor@gittown.gov>
+Date:   Tue Jan 1 00:00:00 2019 +0000
+
+    26 Balcombe Close
+
+    No one's home...
+
+    You can take a look around though.
+
+commit f8a5b218b1eaee3b111ae5ef536f919e8d3afca2
+Author: Dolores Wholfump <mayor@gittown.gov>
+Date:   Tue Jan 1 00:00:00 2019 +0000
+
+    73 Tamworth Drive
+
+    No one's home...
+
+    Maybe take a look around the perimeter?
+-------------------------------------------
+
+The last two contain a commit hash that can be seen if you git show the commit and view the contents.
+Entering this hash into git show again reveals a message.
+
+26 Balcombe Inspection 
+-----------------------------------------
+Nobody's home. From the stack of letters in the mailbox nobody's been here for a good few days.
+
+Without a warrant you can't get into the house, but you can still checkout the area. Maybe talk with
+some of the neighbors.
+
+The guy next door says he barely ever spoke to the suspect, "was a bit of a loner" is what he says.
+Doesn't know what type of vehicle he drives.
+
+You take a stroll around the house, there's a back porch that probably seen better days. You spot a
+driveway next to it leading to a garage. The door's open and you see a green Hyundai parked there.
+
+73 Tamworth Inspection
+------------------------------------------
+There's no one answering the door. Obviously you won't break in because you don't have a warrant or
+anything. But nothing's wrong with looking around the place...
+
+You check around the house, there's no car. Not even a driveway. You do find a bike resting against
+the fence. It's pretty close to the factory, so makes sense the suspect bikes to work.
+
+Just to make sure, you ask some of the neighbors, they confirm that the suspect doesn't own a car.
+One of them says he doesn't even have a license.
+
+Another neighbor says he saw the suspect coming back from work on the day of the murder at about
+5PM, they chatted for a bit before his sister picked him up to visit their parents. They live pretty
+far away, so that places him away from Git Town at the time of the murder.
+-------------------------------------------
+
+I believe I've found our guy. Mr. Green Hyundai himself. Let's check our work.
+echo "Cosmo Siwkonk" | git hash-object --stdin | grep -iq -f /dev/stdin <(git show solution) && echo 'You found the murderer!' || echo 'No cigar, chief... Try again.'
+
+Sure enough, Cosmo Siwkonk.
